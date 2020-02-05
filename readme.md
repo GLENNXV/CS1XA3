@@ -1,4 +1,4 @@
-# CS 1XA3 Project01 - <MyMacId>
+# CS 1XA3 Project01 - <xus83>
 ## Usage
 Execute this script from project root with:
 chmod +x CS1XA3/Project01/project_analyze.sh
