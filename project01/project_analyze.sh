@@ -7,15 +7,16 @@ fixmeLog(){
     then
         rm -f fixme.log
     fi
-    for i in `find ./project01 -type f`
+    touch fixme.log
+    for i in `find . -type f`
     do
-        echo $i
-        if [ -n `grep "#FIXME" $i | tail -1` ]
-        then
-            echo $i >> project01/fixme.log
-        fi
+        tail -1 $i > tempRTDCGUIYFHVG
+        grep "#FIXME" tempRTDCGUIYFHVG && echo $i >> fixme.log
+        rm -f tempRTDCGUIYFHVG
     done
 }
+
+
 
 features(){
     echo "please enter the feature you need as follow"
@@ -29,13 +30,13 @@ features(){
     echo "-----------------------------------------------------------"
     echo "running"
     echo "-----------------------------------------------------------"
+    start=`date +%s`
     eval $input
+    end=`date +%s`
+    let timeCost=end-start
     echo "-----------------------------------------------------------"
-    echo "done"
+    echo "done in $timeCost secs"
 }
 
 features
-
-
-
 
