@@ -2,6 +2,7 @@
 # author:shuren xu
 # macid:xus83
 
+# detect temporary files and delete them if there is any
 scriptInit(){
     if [ -e scriptemp ]
     then
@@ -59,20 +60,20 @@ fileSize(){
 
 features(){
     echo "please enter the feature you need as follow"
-    echo "'fixmeLog' 'chkMerge' 'fileSize'"
-    echo "please be careful about the uppercases"
-    echo "to exit enter 'exit' or 'exit 0'"
+    echo "'fixmeLog'  'chkMerge'  'fileSize'"
+    echo "please be careful of the uppercases"
+    echo "to exit enter 'exit'"
     read -p "feature name: " input
+    if [ $input = "exit" ]
+    then
+        eval $input
+    fi
     echo "the feature will be activated is $input"
-    echo "anytime to run a feature just enter the name of the feature"
-    echo "-----------------------------------------------------------"
-    echo "for help enter 'features'"
-    echo "-----------------------------------------------------------"
-    echo "running"
     echo "-----------------------------------------------------------"
     start=`date +%s`
     eval $input
     end=`date +%s`
+    echo "-----------------------------------------------------------"
     let timeCost=end-start
     if [ $timeCost == 0 ]
     then
@@ -80,7 +81,20 @@ features(){
     else
         echo "done in $timeCost secs"
     fi
+    echo "-----------------------------------------------------------"
 }
 
-features
+scriptInit
+
+if [ $# -ge 1 ]
+then
+    eval $1
+    echo "-----------------------------------------------------------"
+    echo "done"
+else
+    while true
+    do
+        features
+    done
+fi
 
