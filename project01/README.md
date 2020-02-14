@@ -5,9 +5,10 @@ Execute this script from project root with:
 chmod +x CS1XA3/Project01/project_analyze.sh
 ./CS1XA3/Project01/project_analyze arg1 arg2 ...
 ```
-With possible arguments
-arg1: ....
-arg2: ....
+Wvith possible arguments\
+arg1: ....\
+arg2: ....\
+More given argument would be ignored
 
 Or follow the instructions and enter the feature name when executing
 
