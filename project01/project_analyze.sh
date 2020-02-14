@@ -2,15 +2,23 @@
 # author:shuren xu
 # macid:xus83
 
-if [ -e scriptemp ]
-then
-    rm -f scriptemp
-fi
+scriptInit(){
+    if [ -e scriptemp ]
+    then
+        rm -f scriptemp
+    fi
 
-if [ -e scriptemp2 ]
-then
-    rm -f scriptemp2
-fi
+    if [ -e scriptemp2 ]
+    then
+        rm -f scriptemp2
+    fi
+
+    if [ -e gitLog.log ]
+    then
+        rm -f gitlog.log
+    fi
+}
+
 
 fixmeLog(){
     if [ -f "fixme.log" ]
@@ -35,7 +43,7 @@ chkMerge(){
     lenID=${#commitID}
     let lenID-=7
     commitID=${commitID:7:$lenID}
-    git checkout commitID
+    git checkout $commitID
 }
 
 fileSize(){
