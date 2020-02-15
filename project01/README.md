@@ -31,7 +31,7 @@ newline
 
 Execution:
 * execute this feature by entering 'fixmeLog' as argument1.
-* Or follow the instructions instead
+* Or follow the instructions instead.
 
 Reference: some code was taken from [Bash scripting cheatsheet](https://devhints.io/bash)
 ## Checkout Latest Merge
@@ -41,7 +41,7 @@ Description:
 
 Execution: 
 * execute this feature by entering 'chkMerge' as argument1. 
-* Or follow the instructions instead
+* Or follow the instructions instead.
 
 Reference: some code was taken from [Git Doc](https://git-scm.com/docs)
 ##  File Size List
@@ -52,35 +52,40 @@ KB, MB, GB, etc)
 
 Execution:
 * execute this feature by entering 'fileSize' as argument1.
-* Or follow the instructions instead
+* Or follow the instructions instead.
 
 Reference: some code was taken from [StackExchange](https://unix.stackexchange.com/questions/405601/how-do-i-store-the-human-friendly-size-of-a-file-in-a-variable)
 ## File Filter And Sort (Custon Feature 1)
 Description: 
-* List all files in the repo (you can choose just files or both files and directories) that matches the requirements.
+* Using the read command, prompt the user to choose the method to filter like below, and whether to show just files or both files and directories.
+* List all files in the repo that matches the requirements.
 * The files can be filtered by 
     * Filename extensions
     * permissions
     * time modified
-    * wheather empty or not
-    * wheather hidden or not. 
-* Sort by ascii code
+    * whether empty or not
+    * whether hidden or not. 
+* Sort by ascii code.
 
 Execution:
 * execute this feature by entering 'fileFilter' as argument1.
-* Or follow the instructions instead
+* Or follow the instructions instead.
 
-Reference: some code was taken from [Pending](about:blank)
+Reference: some code was taken from [404](about:blank)
 ## File Encryption And Decryption (Custon Feature 2)
 Description: 
-* Encrypt selected files by changing the filename extensions to '.somefile'
-* Create a log 'extEncrypt.log' to store the original filename extensions of each file (overwrite it if it already exists)
-* Decrypt the files by swap back their original filename extensions refers to extEncrypt.log
+* Using the read command, prompt the user to Encrypt or Decrypt 
+* If the user selects Encrypt:
+    * Encrypt selected files by changing the filename extensions to '.somefile'
+    * Create a log 'extEncrypt.log' to store the original filename extensions of each file (overwrite it if it already exists)
+* If the user selects Decrypt: 
+    * Decrypt the files by swap back their original filename extensions refers to extEncrypt.log
+    * if extEncrypt.log does not exist, alert an error message
 
 Execution:
 * execute this feature by entering 'enp&dep' as argument1.
-* Or follow the instructions instead
+* Or follow the instructions instead.
 
-Reference: some code was taken from [Pending](about:blank)
+Reference: some code was taken from [404](about:blank)
 ## Releases
 [Dropbox](https://www.dropbox.com/s/558o9f009kcr6ly/project_analyze.sh?dl=0)
