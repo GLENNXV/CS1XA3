@@ -4,60 +4,68 @@
 
 # detect temporary files and delete them if there is any
 scriptInit(){
-    if [ -e scriptemp ]
+    if [ -e ./CS1XA3/Project01/scriptemp ]
     then
-        rm -f scriptemp
+        rm -f ./CS1XA3/Project01/scriptemp
     fi
 
-    if [ -e scriptemp2 ]
+    if [ -e ./CS1XA3/Project01/scriptemp2 ]
     then
-        rm -f scriptemp2
+        rm -f ./CS1XA3/Project01/scriptemp2
     fi
 
-    if [ -e gitLog.log ]
+    if [ -e ./CS1XA3/Project01/gitLog.log ]
     then
-        rm -f gitlog.log
+        rm -f ./CS1XA3/Project01/gitlog.log
     fi
 }
 
-
+# feature FIXME Log
 fixmeLog(){
-    if [ -f "fixme.log" ]
+    if [ -f ./CS1XA3/Project01/fixme.log ]
     then
-        rm -f fixme.log
+        rm -f ./CS1XA3/Project01/fixme.log
     fi
-    touch fixme.log
-    for i in `find . -type f`
+    touch ./CS1XA3/Project01/fixme.log
+    for i in `find ./CS1XA3/Project01 -type f`
     do
-        tail -1 $i > scriptemp
-        grep "#FIXME" scriptemp && echo $i >> fixme.log
-        rm -f scriptemp
+        tail -1 $i > ./CS1XA3/Project01/scriptemp
+        grep "#FIXME" ./CS1XA3/Project01/scriptemp && echo $i >> ./CS1XA3/Project01/fixme.log
+        rm -f ./CS1XA3/Project01/scriptemp
     done
 }
 
+# feature Checkout Latest Merge
 chkMerge(){
-    git log > gitLog.log
-    grep -C 4 "merge" gitLog.log > scriptemp
-    commitID=`head -n 1 scriptemp`
-    rm -f gitlog.log
-    rm -f scriptemp
-    lenID=${#commitID}
-    let lenID-=7
-    commitID=${commitID:7:$lenID}
-    git checkout $commitID
+    cd ./CS1XA3
+    git log > ./Project01/gitLog.log
+    grep -C 4 "merge" ./Project01/gitLog.log > ./Project01/scriptemp
+    commitID=`head -n 1 ./Project01/scriptemp`
+    rm -f ./Project01/gitlog.log
+    rm -f ./Project01/scriptemp
+    cd ..
+    if [ -z $commitId ]
+    then
+        echo "no git commit matches 'merge'"
+    else
+        commitID=${commitID:7:47}
+        git checkout $commitID
+    fi
 }
 
+# feature File Size List
 fileSize(){
-    for i in `find ./ -type f`
+    for i in `find ./CS1XA3/Project01 -type f`
     do
-        du -h $i >> scriptemp
+        du -h $i >> ./CS1XA3/Project01/scriptemp
     done
-    sort -h scriptemp >> scriptemp2
-    cat scriptemp2
-    rm -f scriptemp
-    rm -f scriptemp2
+    sort -h ./CS1XA3/Project01/scriptemp >> ./CS1XA3/Project01/scriptemp2
+    cat ./CS1XA3/Project01/scriptemp2
+    rm -f ./CS1XA3/Project01/scriptemp
+    rm -f ./CS1XA3/Project01/scriptemp2
 }
 
+# the instrctions shows up when none argument is given
 features(){
     echo "please enter the feature you need as follow"
     echo "'fixmeLog'  'chkMerge'  'fileSize'"
@@ -84,8 +92,12 @@ features(){
     echo "-----------------------------------------------------------"
 }
 
+# detect temporary files and delete them if there is any
 scriptInit
 
+# main function logic
+# script mode for no infinite loops and no timer
+# UI mode on the contrary
 if [ $# -ge 1 ]
 then
     eval $1
