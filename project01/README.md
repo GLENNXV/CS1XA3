@@ -10,7 +10,7 @@ chmod +x CS1XA3/Project01/project_analyze.sh
 arg1: the corresponding name for the feature you want to activate refers to below execution guide\
 i.e. 'fixmeLog' for 'FIXME Log'
 
-Please be careful of the uppercases
+Please be careful of the **uppercases**
 
 More given argument would be ignored
 

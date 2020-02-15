@@ -97,7 +97,7 @@ scriptInit
 
 # main function logic
 # script mode for no infinite loops and no timer
-# UI mode on the contrary
+# UI mode is on the contrary
 if [ $# -ge 1 ]
 then
     eval $1
