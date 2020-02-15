@@ -78,7 +78,7 @@ Description:
 * Decrypt the files by swap back their original filename extensions refers to extEncrypt.log
 
 Execution:
-* execute this feature by entering 'encryp&decryp' as argument1.
+* execute this feature by entering 'enp&dep' as argument1.
 * Or follow the instructions instead
 
 Reference: some code was taken from [Pending](about:blank)
