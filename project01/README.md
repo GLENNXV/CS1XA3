@@ -55,29 +55,30 @@ Execution:
 * Or follow the instructions instead
 
 Reference: some code was taken from [StackExchange](https://unix.stackexchange.com/questions/405601/how-do-i-store-the-human-friendly-size-of-a-file-in-a-variable)
-## File Filter (Custon Feature 1)
+## File Filter And Sort (Custon Feature 1)
 Description: 
 * List all files in the repo (you can choose just files or both files and directories) that matches the requirements.
-* the files can be filtered by 
+* The files can be filtered by 
     * Filename extensions
     * permissions
     * time modified
     * wheather empty or not
     * wheather hidden or not. 
+* Sort by ascii code
 
 Execution:
 * execute this feature by entering 'fileFilter' as argument1.
 * Or follow the instructions instead
 
 Reference: some code was taken from [Pending](about:blank)
-## File Encryption and Decryption (Custon Feature 2)
+## File Encryption And Decryption (Custon Feature 2)
 Description: 
 * Encrypt selected files by changing the filename extensions to '.somefile'
 * Create a log 'extEncrypt.log' to store the original filename extensions of each file (overwrite it if it already exists)
 * Decrypt the files by swap back their original filename extensions refers to extEncrypt.log
 
 Execution:
-* execute this feature by entering 'fileFilter' as argument1.
+* execute this feature by entering 'encryp&decryp' as argument1.
 * Or follow the instructions instead
 
 Reference: some code was taken from [Pending](about:blank)
