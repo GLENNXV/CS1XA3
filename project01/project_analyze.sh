@@ -65,6 +65,50 @@ fileSize(){
     rm -f ./CS1XA3/Project01/scriptemp2
 }
 
+#feature Switch to Executable
+toExe(){
+    read -p "please enter change or restore: " input
+    if [ $input = "change" ]
+    then
+        if [ -e ./CS1XA3/Project01/permissions.log ]
+        then
+            rm -f ./CS1XA3/Project01/permissions.log
+        fi
+        touch ./CS1XA3/Project01/permissions.log
+        for i in `find ./CS1XA3/Project01 -type f`
+        do
+            file=`ls -l $i`
+            pms="${file:0:10} $i"
+            echo $pms >> ./CS1XA3/Project01/permissions.log
+            if [ "${pms:2:1}" = "w" ]
+            then
+                chmod u+x $i
+            fi
+            if [ "${pms:5:1}" = "w" ]
+            then
+                chmod g+x $i
+            fi
+            if [ "${pms:8:1}" = "w" ]
+            then
+                chmod o+x $i
+            fi
+        done
+    elif [ $input = "restore" ]
+    then
+        if [ -e ./CS1XA3/Project01/permissions.log ]
+        then
+            while IFS= read -r i
+            do
+                chmod ${i:0:10} ${i:12}
+            done < ./CS1XA3/Project01/permissions.log
+        else
+            echo "file log doesn't exist, cannot restore files before ther're changed"
+        fi
+    else
+        echo "entered script soesn't match change or restore"
+    fi
+}
+
 # the instrctions shows up when none argument is given
 features(){
     echo "please enter the feature you need as follow"

@@ -55,6 +55,23 @@ Execution:
 * Or follow the instructions instead.
 
 Reference: some code was taken from [StackExchange](https://unix.stackexchange.com/questions/405601/how-do-i-store-the-human-friendly-size-of-a-file-in-a-variable)
+## Switch To Executable
+Description: 
+* Find all shell scripts (i.e ending in .sh) in the repo
+* Create a file CS1XA3/Project01/permissions.log if it doesn’t already exist
+* Using the read command, prompt the user to Change or Restore (use a prompt that tells the user
+what to do)
+* If the user selects Change:
+    * For each shell script, change the permissions so that only people who have write permissions also have executable permissions (i.e if only user has write permissions, then only user has executable permissions)
+    * Store a log of the file and it’s original permissions in CS1XA3/Project01 permissions.log (overwrite it if it already exists)
+* If the user selects Restore
+    * Restore each file to its original permissions (as specified in CS1XA3/Project01/permissions.log)
+
+Execution:
+* execute this feature by entering 'toExe' as argument1.
+* Or follow the instructions instead.
+
+Reference: some code was taken from [StackOverFlow](https://stackoverflow.com/questions/10929453/read-a-file-line-by-line-assigning-the-value-to-a-variable)
 ## File Filter And Sort (Custon Feature 1)
 Description: 
 * Using the read command, prompt the user to choose the method to filter like below, and whether to show just files or both files and directories.
