@@ -328,7 +328,7 @@ encrypt(){
 # the instrctions shows up when no argument is given
 features(){
     echo "please enter the feature you need as follow"
-    echo "'fixmeLog'  'chkMerge'  'fileSize'"
+    echo "'fixmeLog'  'chkMerge'  'fileSize' 'toExe' 'bkup' 'filter' 'encrypt'"
     echo "please be careful of the uppercases"
     echo "to exit enter 'exit'"
     read -p "feature name: " input

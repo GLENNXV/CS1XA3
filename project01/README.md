@@ -19,7 +19,7 @@ More given argument would be ignored
 *If some are given then there won't be any instruction and it would automatically exit after execution.*\
 *using the instruction is recommended since there is an infinite loop to cycle it, and there is a timer for each cycle.*
 
-![instruction example](https://i.loli.net/2020/02/14/4TD6rVJeyWcO7fZ.png)
+![instruction example](https://i.loli.net/2020/02/29/E3ygfYFBdQ1Jnbx.png)
 
 **Notice: Since this script relies on creating temporary files, not having the permission to create files in current directory would results in unpredictble bugs. So please make sure you have the write permissionin in current directory.** 
 
@@ -79,7 +79,9 @@ Reference: some code was taken from [StackOverFlow](https://stackoverflow.com/qu
 
 ## Backup and Delete / Restore
 Description: 
-* Using the read command, prompt the user to choose the method to filter like below, and whether to show just files or both files and directories.
+* Using the read command, prompt the user to choose the method to filter like below, and whether to show
+    * just files
+    * both files and directories.
 * List all files in the repo that matches the requirements.
 * The files can be filtered by 
     * Filename extensions
@@ -103,6 +105,8 @@ Description:
     * Filename extensions
     * permissions
     * time modified
+        * earlier than
+        * later than
     * whether empty or not
     * whether hidden or not. 
 * Sort by ascii code.
@@ -111,7 +115,7 @@ Execution:
 * execute this feature by entering 'fileFilter' as argument1.
 * Or follow the instructions instead.
 
-Reference: some code was taken from [404](about:blank)
+Reference: some code was taken from [StackOverflow](https://stackoverflow.com/questions/48230259/bash-script-to-calculate-time-difference)
 
 ## File Encryption / Decryption (Custon Feature 2)
 Description: 
@@ -127,7 +131,8 @@ Execution:
 * execute this feature by entering 'enp&dep' as argument1.
 * Or follow the instructions instead.
 
-Reference: some code was taken from [404](about:blank)
+Reference: some code was taken from [StackExchange](https://unix.stackexchange.com/questions/236029/bash-how-do-you-return-file-extensions?rq=1)
 
 ## Releases
-[Dropbox](https://www.dropbox.com/s/558o9f009kcr6ly/project_analyze.sh?dl=0)
+[Dropbox](https://www.dropbox.com/s/558o9f009kcr6ly/project_analyze.sh?dl=0)\
+[Github](https://github.com/GLENNXV/CS1XA3/releases)
