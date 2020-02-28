@@ -122,6 +122,7 @@ toExe(){
     fi
 }
 
+#feature Backup and Restore
 bkup(){
     read -p "please enter backup or restore: " input
     if [ "$input" = "backup" ]
@@ -168,9 +169,163 @@ bkup(){
     fi
 }
 
+#feature File Filter and Sort
+filter(){
+    read -p "please select to show files only (enter 1 or leave blank) or files and directories (enter 2) : " mode
+    if [ "$mode" = "1" -o "$mode" = "" ]
+    then
+        files=`find ./CS1XA3/Project01 -type f | sort`
+    elif [ "$mode" = "2" ]
+    then
+        files=`ls ./CS1XA3/Project01 | sort`
+        for i in $files
+        do
+            echo "./CS1XA3/Project01/$i" >> ./CS1XA3/Project01/scriptemp
+        done
+        files=`cat ./CS1XA3/Project01/scriptemp`
+        echo $files
+        rm -f ./CS1XA3/Project01/scriptemp
+    fi
+    if [ "$files" = "" ]
+    then
+        echo "there are no files in the directory"
+        return 0
+    fi
+    read -p "filter files by (extensions, permissions, time, empty, hidden): " input
+        if [ "$input" = "extensions" ]
+        then
+            read -p "show files that have the same extensions as: " ext
+            if [ "$ext" = "" ]
+            then
+                for i in $files
+                do
+                    nm=${i##*/}
+                    if [ "${nm##*.}" = "$nm" ]
+                    then
+                        echo $i
+                    fi
+                done
+            else
+                for i in $files
+                do
+                    if [ "${i##*.}" = "$ext" ]
+                    then
+                        echo $i
+                    fi
+                done
+            fi
+        elif [ "$input" = "permissions" ]
+        then
+            read -p "show files that have the same permissions (10 chars) as: " pms
+            for i in $files
+            do
+                fileP=`ls -l $i`
+                if [ "${fileP:0:10}" = "$pms" ]
+                then
+                    echo $i
+                fi
+            done
+        elif [ "$input" = "time" ]
+        then
+            read -p "show files that are modified (earlier or later) : " compare
+            if [ "$compare" = "earlier" -o "$compare" = "later" ]
+            then
+                echo ""
+            else
+                echo "invalid parameter"
+                return 0
+            fi
+            read -p "than (format: YYYY-MM-DD hh:mm:ss): " inTime
+            coTime=`date -d "$inTime" +%s`
+            for i in $files
+            do
+                modTime=`stat -c %Y $i`
+                if [ "$compare" = "earlier" ]
+                then
+                    if [ "$modTime" -le "$coTime" ]
+                    then
+                        echo $i
+                    fi
+                elif [ "$compare" = "later" ]
+                then
+                    if [ "$modTime" -ge "$coTime" ]
+                    then
+                        echo $i
+                    fi
+                fi
+            done
+        elif [ "$input" = "empty" ]
+        then
+            echo "files that are empty:"
+            for i in $files
+            do
+                if [ ! -s $i ]
+                then
+                    echo $i
+                fi
+            done
+        elif [ "$input" = "hidden" ]
+        then
+            echo "files that are hidden: "
+            files=`ls -a ./CS1XA3/Project01 | sort`
+            for i in $files
+            do
+                if [ "${i:0:1}" = "." ]
+                then
+                    echo "./CS1XA3/Project01/$i"
+                fi
+            done
+        else
+            echo "invalid input"
+        fi
+}
 
+#
+encrypt(){
+    read -p "please select to encrypt or decrypt: " input
+    if [ "$input" = "encrypt" ]
+    then
+        if [ -e ./CS1XA3/Project01/extEncrpt.log ]
+        then
+            rm -f ./CS1XA3/Project01/extEncrpt.log
+        fi
+        touch ./CS1XA3/Project01/extEncrpt.log
+        read -p "please enter the ralative path of the file being encrypted: " file
+        fileDir=${file%/*}
+        fullName="${file##*/}"
+        ext="${fullName##*.}"
+        pureName=${fullName%.*}
+        newName="$fileDir""/""$pureName"".somefile"
+        mv "$file" "$newName"
+        echo "$newName" "$ext" >> ./CS1XA3/Project01/extEncrpt.log
+    elif [ "$input" = "decrypt" ]
+    then
+        if [ -e "./CS1XA3/Project01/extEncrpt.log" ]
+        then
+            while IFS= read -r i
+                do
+                    arr=()
+                    for j in $i
+                    do
+                        arr=("${arr[@]}" "$j")
+                    done
+                    file=${arr[0]}
+                    fileDir=${file%/*}
+                    fullName="${file##*/}"
+                    ext="${fullName##*.}"
+                    pureName=${fullName%.*}
+                    newName="$fileDir""/""$pureName"".""${arr[1]}"
+                    mv "$file" "$newName"
+                done < ./CS1XA3/Project01/extEncrpt.log
+        else
+            echo "log file does not exist, cannot decrypt"
+        fi
+    else
+        echo "invalid input"
+    fi
+}
 
-# the instrctions shows up when none argument is given
+# the instrctions shows up when no argument is given
 features(){
     echo "please enter the feature you need as follow"
     echo "'fixmeLog'  'chkMerge'  'fileSize'"
@@ -200,7 +355,7 @@ features(){
 # detect temporary files and delete them if there is any
 scriptInit
 
-# main function logic
+# main function
 # script mode for no infinite loops and no timer
 # UI mode is on the contrary
 if [ $# -ge 1 ]
@@ -214,4 +369,3 @@ else
         features
     done
 fi
-
