@@ -22,6 +22,7 @@ More given argument would be ignored
 ![instruction example](https://i.loli.net/2020/02/14/4TD6rVJeyWcO7fZ.png)
 
 **Notice: Since this script relies on creating temporary files, not having the permission to create files in current directory would results in unpredictble bugs. So please make sure you have the write permissionin in current directory.** 
+
 ##  FIXME Log
 Description: 
 * Find every file in your repo that has the word #FIXME in the last line
@@ -34,6 +35,7 @@ Execution:
 * Or follow the instructions instead.
 
 Reference: some code was taken from [Bash scripting cheatsheet](https://devhints.io/bash)
+
 ## Checkout Latest Merge
 Description: 
 * Find the most recent commit with the word merge (case insensitive) in the commit message
@@ -44,6 +46,7 @@ Execution:
 * Or follow the instructions instead.
 
 Reference: some code was taken from [Git Doc](https://git-scm.com/docs)
+
 ##  File Size List
 Description: 
 * List all files in the repo (just files not directories) and their sizes in a human readable format (i.e
@@ -55,6 +58,7 @@ Execution:
 * Or follow the instructions instead.
 
 Reference: some code was taken from [StackExchange](https://unix.stackexchange.com/questions/405601/how-do-i-store-the-human-friendly-size-of-a-file-in-a-variable)
+
 ## Switch To Executable
 Description: 
 * Find all shell scripts (i.e ending in .sh) in the repo
@@ -72,6 +76,25 @@ Execution:
 * Or follow the instructions instead.
 
 Reference: some code was taken from [StackOverFlow](https://stackoverflow.com/questions/10929453/read-a-file-line-by-line-assigning-the-value-to-a-variable)
+
+## Backup and Delete / Restore
+Description: 
+* Using the read command, prompt the user to choose the method to filter like below, and whether to show just files or both files and directories.
+* List all files in the repo that matches the requirements.
+* The files can be filtered by 
+    * Filename extensions
+    * permissions
+    * time modified
+    * whether empty or not
+    * whether hidden or not. 
+* Sort by ascii code.
+
+Execution:
+* execute this feature by entering 'fileFilter' as argument1.
+* Or follow the instructions instead.
+
+Reference: some code was taken from [StackExchange](https://unix.stackexchange.com/questions/236029/bash-how-do-you-return-file-extensions?rq=1)
+
 ## File Filter And Sort (Custon Feature 1)
 Description: 
 * Using the read command, prompt the user to choose the method to filter like below, and whether to show just files or both files and directories.
@@ -89,7 +112,8 @@ Execution:
 * Or follow the instructions instead.
 
 Reference: some code was taken from [404](about:blank)
-## File Encryption And Decryption (Custon Feature 2)
+
+## File Encryption / Decryption (Custon Feature 2)
 Description: 
 * Using the read command, prompt the user to Encrypt or Decrypt 
 * If the user selects Encrypt:
@@ -104,5 +128,6 @@ Execution:
 * Or follow the instructions instead.
 
 Reference: some code was taken from [404](about:blank)
+
 ## Releases
 [Dropbox](https://www.dropbox.com/s/558o9f009kcr6ly/project_analyze.sh?dl=0)

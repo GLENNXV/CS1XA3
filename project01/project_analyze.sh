@@ -44,7 +44,7 @@ chkMerge(){
     rm -f ./Project01/gitlog.log
     rm -f ./Project01/scriptemp
     cd ..
-    if [ -z $commitId ]
+    if [ -z "$commitId" ]
     then
         echo "no git commit matches 'merge'"
     else
@@ -68,7 +68,7 @@ fileSize(){
 #feature Switch to Executable
 toExe(){
     read -p "please enter change or restore: " input
-    if [ $input = "change" ]
+    if [ "$input" = "change" ]
     then
         if [ -e ./CS1XA3/Project01/permissions.log ]
         then
@@ -77,37 +77,98 @@ toExe(){
         touch ./CS1XA3/Project01/permissions.log
         for i in `find ./CS1XA3/Project01 -type f`
         do
-            file=`ls -l $i`
-            pms="${file:0:10} $i"
-            echo $pms >> ./CS1XA3/Project01/permissions.log
-            if [ "${pms:2:1}" = "w" ]
+            if [ ${i##*.} = "sh" ]
             then
-                chmod u+x $i
-            fi
-            if [ "${pms:5:1}" = "w" ]
-            then
-                chmod g+x $i
-            fi
-            if [ "${pms:8:1}" = "w" ]
-            then
-                chmod o+x $i
+                usr=""
+                file=`ls -l $i`
+                pms="${file:0:10}" "$i"
+                if [ "${file:2:1}" = "w" ]
+                then
+                    chmod u+x $i
+                    usr="$usr""u"
+                fi
+                if [ "${file:5:1}" = "w" ]
+                then
+                    chmod g+x $i
+                    usr="$usr""g"
+                fi
+                if [ "${file:8:1}" = "w" ]
+                then
+                    chmod o+x $i
+                    usr="$usr""o"
+                fi
+                pms="$pms" "$usr"
+                echo "$pms" >> ./CS1XA3/Project01/permissions.log
             fi
         done
-    elif [ $input = "restore" ]
+    elif [ "$input" = "restore" ]
     then
         if [ -e ./CS1XA3/Project01/permissions.log ]
         then
             while IFS= read -r i
             do
-                chmod ${i:0:10} ${i:12}
+                pms=()
+                for j in $i
+                do
+                    pms=("${pms[@]}" "$j")
+                done
+                chmod "${pms[2]}-x" "${pms[1]}"
             done < ./CS1XA3/Project01/permissions.log
         else
-            echo "file log doesn't exist, cannot restore files before ther're changed"
+            echo "permissions.log doesn't exist, cannot restore files"
         fi
     else
         echo "entered script soesn't match change or restore"
     fi
 }
+
+bkup(){
+    read -p "please enter backup or restore: " input
+    if [ "$input" = "backup" ]
+    then
+        if [ -e ./CS1XA3/Project01/backup ]
+        then
+            rm -rf ./CS1XA3/Project01/backup
+        fi
+        mkdir ./CS1XA3/Project01/backup
+        touch ./CS1XA3/Project01/backup/restore.log
+        for i in `find ./CS1XA3/Project01 -type f`
+        do
+            if [ "${i##*.}" = tmp ]
+            then
+                file="${i##*/}"" ""${i%/*}" #(name dir)
+                echo $file >> ./CS1XA3/Project01/backup/restore.log
+                cp $i ./CS1XA3/Project01/backup
+                rm -f $i
+            fi
+        done
+    elif [ "$input" = "restore" ]
+    then
+        if [ -e ./CS1XA3/Project01/backup/restore.log ]
+        then
+            while IFS= read -r i
+            do
+                file=()
+                for j in $i
+                do
+                    file=("${file[@]}" "$j")
+                done
+                if [ -e "./CS1XA3/Project01/backup/${file[0]}" ]
+                then
+                    cp "./CS1XA3/Project01/backup/${file[0]}" "${file[1]}"
+                else
+                    echo "restore failed due to backup files does not exist"
+                fi
+            done < ./CS1XA3/Project01/backup/restore.log
+        else
+            echo "restore.log doesn't exist, cannot restore files"
+        fi
+    else
+        echo "entered script soesn't match backup or restore"
+    fi
+}
+
+
 
 # the instrctions shows up when none argument is given
 features(){
