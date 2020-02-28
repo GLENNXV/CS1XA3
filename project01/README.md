@@ -92,7 +92,7 @@ Description:
 * Sort by ascii code.
 
 Execution:
-* execute this feature by entering 'fileFilter' as argument1.
+* execute this feature by entering 'bkup' as argument1.
 * Or follow the instructions instead.
 
 Reference: some code was taken from [StackExchange](https://unix.stackexchange.com/questions/236029/bash-how-do-you-return-file-extensions?rq=1)
@@ -112,7 +112,7 @@ Description:
 * Sort by ascii code.
 
 Execution:
-* execute this feature by entering 'fileFilter' as argument1.
+* execute this feature by entering 'filter' as argument1.
 * Or follow the instructions instead.
 
 Reference: some code was taken from [StackOverflow](https://stackoverflow.com/questions/48230259/bash-script-to-calculate-time-difference)
@@ -128,7 +128,7 @@ Description:
     * if extEncrypt.log does not exist, alert an error message
 
 Execution:
-* execute this feature by entering 'enp&dep' as argument1.
+* execute this feature by entering 'encrypt' as argument1.
 * Or follow the instructions instead.
 
 Reference: some code was taken from [StackExchange](https://unix.stackexchange.com/questions/236029/bash-how-do-you-return-file-extensions?rq=1)
