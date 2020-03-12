@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="xus83">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/mine.css" rel="stylesheet">
+    <script src="scripts/vueDev.js"></script>
+    <title>xus83's personal CV</title>
+
+</head>
+<br><br>
+<hr class="hrs"><br>
+<div id="np">
+    <h1 class="name" v-bind:style="{color:theme}">Shuren Xu
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button v-on:click="fixContact" class="bts">
+            <img v-on:mouseenter="onContact" v-on:mouseleave="offContact" src="icons/phone.png" alt="phone" width="19" height="19" style="display:inline;" title="click to fix them">
+        </button>
+        <p v-show="showMe" style="font-size:15px;display:inline">647-469-7576</p><br>
+        <button v-on:click="fixContact" class="bts">
+            <img v-on:mouseenter="onContact" v-on:mouseleave="offContact" src="icons/email.png" alt="phone" width="19" height="19" style="display:inline" title="click to fix them">
+        </button>
+        <p v-show="showMe" style="font-size:15px;display:inline">xus83@mcmaster.ca</p><br>
+        <button v-on:click="fixContact" class="bts">
+            <img v-on:mouseenter="onContact" v-on:mouseleave="offContact" src="icons/linkedin.png" alt="phone" width="19" height="19" style="display:inline" title="click to fix them">
+        </button>
+        <p v-show="showMe" style="font-size:15px;display:inline">Linkedin.com/in/glenn-xv-48779a19b</p><br>
+        <button v-on:click="fixContact" class="bts">
+            <img v-on:mouseenter="onContact" v-on:mouseleave="offContact" src="icons/github.png" alt="phone" width="19" height="19" style="display:inline" title="click to fix them">
+        </button>
+        <p v-show="showMe" style="font-size:15px;display:inline">Github.com/GLENNXV</p><br>
+    </h1>
+</div>
+<br><hr class="hrs"><br>
+
+<script>
+    var vm=new Vue({
+        el:"#np",
+        data:{
+            showMe:false,
+            dontChange:false,
+            theme:"indigo"
+        },
+        methods:{
+            onContact:function(){
+                if (!this.dontChange){
+                    this.showMe=true;
+                }
+            },
+            offContact:function(){
+                if (!this.dontChange){
+                    this.showMe=false;
+                }
+            },
+            fixContact:function(){
+                this.dontChange=!this.dontChange
+            }
+        }
+    })
+</script>
+</body>
+</html>
