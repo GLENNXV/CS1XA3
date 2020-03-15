@@ -3,61 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="xus83">
+    <!--mobile adaptation-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles/mine.css" rel="stylesheet">
-    <script src="scripts/vueDev.js"></script>
+    <link href="styles/main.css" rel="stylesheet">
+    <script src="scripts/vue.js"></script>
+    <link rel="icon" href="icons/icon.png" sizes="32x32">
     <title>xus83's personal CV</title>
-
 </head>
-<br><br>
-<hr class="hrs"><br>
-<div id="np">
-    <h1 class="name" v-bind:style="{color:theme}">Shuren Xu
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button v-on:click="fixContact" class="bts">
-            <img v-on:mouseenter="onContact" v-on:mouseleave="offContact" src="icons/phone.png" alt="phone" width="19" height="19" style="display:inline;" title="click to fix them">
-        </button>
-        <p v-show="showMe" style="font-size:15px;display:inline">647-469-7576</p><br>
-        <button v-on:click="fixContact" class="bts">
-            <img v-on:mouseenter="onContact" v-on:mouseleave="offContact" src="icons/email.png" alt="phone" width="19" height="19" style="display:inline" title="click to fix them">
-        </button>
-        <p v-show="showMe" style="font-size:15px;display:inline">xus83@mcmaster.ca</p><br>
-        <button v-on:click="fixContact" class="bts">
-            <img v-on:mouseenter="onContact" v-on:mouseleave="offContact" src="icons/linkedin.png" alt="phone" width="19" height="19" style="display:inline" title="click to fix them">
-        </button>
-        <p v-show="showMe" style="font-size:15px;display:inline">Linkedin.com/in/glenn-xv-48779a19b</p><br>
-        <button v-on:click="fixContact" class="bts">
-            <img v-on:mouseenter="onContact" v-on:mouseleave="offContact" src="icons/github.png" alt="phone" width="19" height="19" style="display:inline" title="click to fix them">
-        </button>
-        <p v-show="showMe" style="font-size:15px;display:inline">Github.com/GLENNXV</p><br>
-    </h1>
-</div>
-<br><hr class="hrs"><br>
 
-<script>
-    var vm=new Vue({
-        el:"#np",
-        data:{
-            showMe:false,
-            dontChange:false,
-            theme:"indigo"
-        },
-        methods:{
-            onContact:function(){
-                if (!this.dontChange){
-                    this.showMe=true;
-                }
-            },
-            offContact:function(){
-                if (!this.dontChange){
-                    this.showMe=false;
-                }
-            },
-            fixContact:function(){
-                this.dontChange=!this.dontChange
-            }
-        }
-    })
-</script>
+<body>
+<!-- Vue.js only works under divs with the same id as declared in the object -->
+<div id="np">
+    <!-- top navigation bar -->
+    <div class="topBar" v-bind:style="{'background-color':theme}">
+        <!-- the buttons are shown in contrasting color of the theme -->
+        <a href="#home" class="alinks" style="position:relative;left:13%" v-bind:style="{color:conTheme}">HOME</a>
+        <a href="#overview" class="alinks" style="position:relative;left:26%" v-bind:style="{color:conTheme}">OVERVIEW</a>
+        <a href="#explore" class="alinks" style="position:relative;left:39%" v-bind:style="{color:conTheme}">EXPLORE</a>
+        <!-- calling function showContact -->
+        <button class="bts" style="position:relative;left:52%;" v-bind:style="{color:conTheme}" v-on:mouseenter="showContact" v-on:mouseleave="offContact">CONTACT</button>
+        <transition name="fade">
+            <!-- v-show is used rather than v-if since its more efficient cuz this div is designed to show and disappear over and over -->
+            <div class="topMenu" style="height:10.5%;width:4%;left:63.6%;" v-bind:style="{'background-color':theme}" v-show="showC" v-on:mouseenter="showContact" v-on:mouseleave="offContact">
+                <button class="bts" onclick="alert('647-469-7576')" style="margin-left:12%;margin-top:20%;" v-bind:style="{color:conTheme}">phone</button>
+                <a class="alinks" style="margin-left:20%;margin-top:20%" v-bind:style="{color:conTheme}" href="mailto:xus83@mcmaster.ca?">email</a>
+                <a class="alinks" style="margin-left:12%;margin-top:20%" v-bind:style="{color:conTheme}" href="https://Linkedin.com/in/glenn-xv-48779a19b">linkedin</a>
+                <a class="alinks" style="margin-left:20%;margin-top:20%" v-bind:style="{color:conTheme}" href="https://Github.com/GLENNXV">github</a>
+            </div>
+        </transition>
+        <button class="bts" style="position:relative;left:65%;" v-bind:style="{color:conTheme}" v-on:mouseenter="showSet" v-on:mouseleave="offSet">SETTINGS</button>
+        <transition name="fade">
+            <div class="topMenu" style="height:10.5%;width:4%;left:80.7%;" v-bind:style="{'background-color':theme}" v-show="showS" v-on:mouseenter="showSet" v-on:mouseleave="offSet">
+                <button class="bts" style="margin-left:12%;margin-top:20%;" v-on:click="showPanel" v-bind:style="{color:conTheme}">theme</button>
+                <button class="bts" style="margin-left:12%;margin-top:20%;" v-on:click="showLang" v-bind:style="{color:conTheme}">lang</button>
+            </div>
+        </transition>
+        <transition name="fade">
+            <!-- theme setting menu -->
+            <div style="position:fixed;width:40%;height:50%;z-index:1;top:24%;left:30%" v-bind:style="{'background-color':theme}" v-bind:style="{color:conTheme}" v-show='showP'>
+                <h1 style="position:fixed;top:30%;left:40%" v-bind:style="{color:conTheme}">please select or input a color</h1>
+                <button class="bts" style="position:fixed;top:25.1%;left:67%" v-on:click="offPanel" v-bind:style="{color:conTheme}"><strong>close</strong></button>
+                <!-- select theme -->
+                <select style="position:fixed;top:45%;left:40%" v-model="selected">
+                    <option disabled value="">please select</option>
+                    <option>Black</option>
+                    <option>White</option>
+                    <option>SkyBlue</option>
+                    <option>Indigo</option>
+                    <option>GreenYellow</option>
+                    <option>Maroon</option>
+                </select>
+                <p style="position:fixed;top:43.5%;left:33%" v-bind:style="{color:conTheme}">select theme</p>
+                <span style="position:fixed;top:45%;left:47%" v-bind:style="{color:conTheme}">{{selected}}</span>
+                <!-- input theme -->
+                <input style="position:fixed;top:60%;left:40%" v-model="typed" placeholder="please enter RGB string only">
+                <p style="position:fixed;top:58.5%;left:33%" v-bind:style="{color:conTheme}">input theme</p>
+                <p style="position:fixed;top:61%;left:40%" v-bind:style="{color:conTheme}">i.e. #bf04a3</p>
+                <span style="position:fixed;top:57.5%;left:40%" v-bind:style="{color:conTheme}">{{typed}}</span>
+                <button class="bts" style="position:fixed;top:60%;left:50%" v-on:click="submit" v-bind:style="{color:conTheme}">submit</button>
+                <div style="position:fixed;width:5%;height:10%;z-index:2;top:47%;left:60%" v-bind:style="{'background-color':conTheme}"></div>
+            </div>
+        </transition>
+        <transition name="fade">
+            <div style="position:fixed;width:40%;height:50%;z-index:1;top:24%;left:30%" v-bind:style="{'background-color':theme}" v-bind:style="{color:conTheme}" v-show='showL'>
+                <h1 style="position:fixed;top:30%;left:40%" v-bind:style="{color:conTheme}">please select a language</h1>
+                <button class="bts" style="position:fixed;top:25.1%;left:67%" v-on:click="offLang" v-bind:style="{color:conTheme}"><strong>close</strong></button>
+                <select style="position:fixed;top:45%;left:40%" v-model="lang">
+                    <option>en-CA</option>
+                    <option>en-US</option>
+                    <option>en-UK</option>
+                </select>
+                <span style="position:fixed;top:45%;left:47%" v-bind:style="{color:conTheme}">{{lang}}</span>
+            </div></transition>
+    </div>
+
+    <!-- homepage -->
+    <!-- binding background images to the div -->
+    <div id="home" style="height:1900px; width:100%;" class="bg" v-bind:class="{bgimg1:bg1,bgimg2:bg2}">
+        <h1 class="middle" style="font-size:90px;color:#ffffff;">SHUREN&nbsp;&nbsp;XU</h1>
+        <p style="position:absolute;top:135%;left:19%;font-size:45px;color:#ffffff;">
+            "If you do what you love, you'll never work a day in your life."</p>
+        <p style="position:absolute;top:145%;left:66%;font-size:45px;color:#ffffff;">--Marc Anthony</p>
+    </div>
+
+    <!-- overview -->
+    <div id="overview" style="height:100%;width:100%;background-color:#f5f5f5" class="bg">
+        <!-- text limiter (BTW the length is in the golden section haha) -->
+        <div style="max-width:61.8%;">
+            <!-- highlights -->
+            <h1 style="position:relative;left:34%;padding-top:64px" v-bind:style="{color:theme}">HIGHLIGHTS</h1>
+            <p class="ps" style="position:relative;left:34%">
+                1. Had Learned several languages, frameworks and tools in school and by myself in a short time.<br>
+                2. Have enthusiasm, passion and ambition in programming, enjoy learning new knowledge in programming.<br>
+                3. Have decent communicative competence and have experienced some group work in programming.<br>
+                4. Have a lot of hobbies, which lead me learned how to use some professional software in audio, image, video editing and 3d modeling.
+                Thus, I am competent for some professional need in some other fields during special cases.</p>
+            <hr color="#D3D3D3" size="1" style="position:relative;left:32%">
+
+            <!-- make the div floating so another div can be displayed right beside it -->
+            <div style="float:left;margin-left:26%;">
+                <!-- skills -->
+                <h1 style="position:relative;left:34%;padding-top:12px" v-bind:style="{color:theme}">SKILLS</h1>
+                <p style="font-size:20px;position:relative;left:34%">
+                    Languages & Scripts:</p>
+                <ul style="position:relative;left:34%">
+                    <li>Python</li>
+                    <li>JavaScript</li>
+                    <li>Haskell</li>
+                    <li>HTML</li>
+                    <li>Golang</li>
+                    <li>Bash</li>
+                    <li>MATLAB</li>
+                    <li>Batch</li>
+                </ul>
+                <p style="font-size:20px;position:relative;left:34%">
+                    Frameworks & Libraries:</p>
+                <ul style="position:relative;left:34%">
+                    <li>Node.js</li>
+                    <li>Vue.js</li>
+                    <li>Djangle</li>
+                    <li>Scrapy</li>
+                    <li>Num.py</li>
+                    <li>Scikit-learn</li>
+                </ul>
+                <p style="font-size:20px;position:relative;left:34%">
+                    Tools Related to Programming:</p>
+                <ul style="position:relative;left:34%">
+                    <li>MySQL</li>
+                    <li>Git</li>
+                    <li>Kali Linux</li>
+                    <li>Visual Studio Code</li>
+                </ul>
+                <p style="font-size:20px;position:relative;left:34%">
+                    Other Tools:</p>
+                <ul style="position:relative;left:34%">
+                    <li>FL Studio</li>
+                    <li>Adobe Audition</li>
+                    <li>Adobe Photoshop</li>
+                    <li>Adobe Lightroom</li>
+                    <li>Adobe Premiere</li>
+                    <li>Adobe After Effects</li>
+                    <li>Blender</li>
+                    <li>Microsoft Office</li>
+                </ul>
+            </div>
+            <!-- the other div mentioned before -->
+            <!-- no margin used instead of position since margin costs the limited length -->
+            <div style="position:relative;left:30%">
+                <h1 style="padding-top:12px;margin-bottom:1.5%" v-bind:style="{color:theme}">EDUCATION</h1>
+                <p class="ps" style="display:inline">
+                    <strong>
+                        Bachelor of Science,&nbsp;Mathematics</strong><br>
+                    McMaster University, Hamilton ON
+                </p>
+                <p class="ps" style="position:relative;left:10%;display:inline;">2018-Current</p>
+                <p class="ps" style="margin-bottom:0">Relevant Course:</p>
+                <ul style="position:relative;left:3%;">
+                    <li>Discrete Mathematics with Applications</li>
+                    <li>Linear Algebra</li>
+                    <li>Data Structures & Algorithms</li>
+                    <li>Intro to Software Development</li>
+                </ul>
+            </div>
+            <div style="position:relative;left:30%">
+                <h1 style="padding-top:12px;margin-bottom:1.5%" v-bind:style="{color:theme}">EXPERIENCE</h1>
+                <p class="ps"><strong>
+                    Volunteer for a member of parliament</strong><br>
+                    Campaign team, Scarborough ON</p>
+                <p class="ps"><strong>
+                    Beat Producer</strong><br>
+                    Beatstars, WWW .COM</p>
+            </div>
+            <div style="position:relative;left:30%;margin-bottom:8%">
+                <h1 style="padding-top:12px;margin-bottom:1.5%" v-bind:style="{color:theme}">PROJECT</h1>
+                <p class="ps"><strong>
+                    CS 1XA3 Project 01</strong></p>
+                <ul style="position:relative;left:3%;">
+                    <li>Strengthened debugging skills since there are no types in bash</li>
+                    <li>Became proficient in finding and configuring VS Code plugins, and even learned how to make simple plugins</li>
+                </ul>
+            </div>
+        </div>
+        <br><br><br>
+    </div>
+
+    <!-- explore -->
+    <div id="explore" style="height:100%;width:100%;background-image:url('pics/stars.jpg');min-height:2000px" class="bg">
+        <h1 style="opacity:0;">EXPLORE</h1>
+        <transition name="slide-fade">
+            <p style="color:#ffffff;font-size:40px;padding-top:20%;text-align:center;" v-if="showT">
+                <strong>
+                    There are tons of new programming languages being invented every year,<br>
+                    and new concepts keep refreshing people's cognition as the development of technology</strong></p>
+        </transition>
+        <transition name="slide-fade">
+            <p style="color:#ffffff;font-size:40px;padding-top:5%;text-align:center;" v-if="showT1">
+                <strong>
+                    That's why people say programming is forcing everyone to keep studying</strong></p>
+        </transition>
+        <transition name="slide-fade">
+            <p style="color:#ffffff;font-size:40px;padding-top:5%;text-align:center;" v-if="showT2">
+                <strong>
+                    But for someone who really like it, the process of learning is enjoyable<br><br><br>
+                    Although the journey might be a little tough<br>
+                    The places you arrived and its joy remains forever</strong></p>
+        </transition>
+        <transition name="slide-fade">
+            <p style="color:#ffffff;font-size:40px;padding-top:5%;text-align:center;" v-if="showT3">
+                <strong>
+                    "Hello World!"</strong></p>
+        </transition>
+        <p style="color:#ffffff;font-size:15px;position:absolute;bottom:-420%;left:45%;">
+            © 2020 By Shuren Xu.</p>
+    </div>
+</div>
 </body>
+
+
+<script src="scripts/main.js"></script>
 </html>
