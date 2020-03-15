@@ -119,8 +119,25 @@ var vm=new Vue({
         selected:function(){
             this.theme=this.colorL[vm.selected];
         },
+        theme:function(){
+            if(typeof(Storage)!=="undefined")
+            {
+                localStorage.theme=vm.theme;
+            }
+            else
+            {
+                document.getElementById("result").innerHTML="sorry your brower does not support web storage";
+            }
+        },
     },
-    mounted() {
+    created:function(){
+        if(localStorage.theme!==undefined){
+            this.theme=localStorage.theme
+        }else{
+            this.theme='#000000'
+        }
+    },
+    mounted(){
         //monitor if its scrolled and run changeBg method whenever scrolled
         window.addEventListener("scroll",this.changeBg);
     },
