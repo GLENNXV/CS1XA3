@@ -23,7 +23,7 @@ More given argument would be ignored
 
 **Notice: Since this script relies on creating temporary files, not having the permission to create files in current directory would results in unpredictble bugs. So please make sure you have the write permissionin in current directory.** 
 
-##  FIXME Log
+## FIXME Log
 Description: 
 * Find every file in your repo that has the word #FIXME in the last line
 * Put the list of these file names in CS1XA3/Project01/fixme.log with each file separated by a
