@@ -31,8 +31,9 @@ The navigation bar and most capable titles would turn to that color, and the but
 
 **Feature 4**: Insite message\
 * a clear button to clear the textarea after confirmation
-* (aborted since I don't know the backend api for ajax to receive data)\
-~~message submission through jquery.ajax~~
+* ~~message submission through jquery.ajax~~\
+(aborted since I don't know the backend api for ajax to receive data)
+
 
 aborted jquery.ajax code\
 ![image.png](https://i.loli.net/2020/03/18/T1BILXa7dSxw3MF.png)
