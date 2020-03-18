@@ -24,10 +24,19 @@ There are two ways to change the theme
     * Have a function to determine if the input is RGB value
 
 The navigation bar and most capable titles would turn to that color, and the buttons would turn to the contrasting color of that color since there is a function that
-* Take a RGB value as input and caculate its contrasting color
+* Take a RGB value as input and calculate its contrasting color
 * Then store the color to localStorage so that the theme would stay in that color next time the webpage is opened
 
 ![theme menu](https://i.loli.net/2020/03/16/4h2Bn3AvZIpk5eu.png)
+
+**Feature 4**: Insite message\
+* a clear button to clear the textarea after confirmation
+* (aborted since I don't know the backend api for ajax to receive data)\
+~~message submission through jquery.ajax~~
+
+aborted jquery.ajax code\
+![image.png](https://i.loli.net/2020/03/18/T1BILXa7dSxw3MF.png)
+
 ## References
 - The html document have taken some code from the following HTML Template from 
 [w3school](https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe)

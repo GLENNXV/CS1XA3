@@ -13,6 +13,7 @@ var vm=new Vue({
         showP:false,
         showT:false,
         showL:false,
+        showM:false,
         showT1:false,
         showT2:false,
         showT3:false,
@@ -21,7 +22,8 @@ var vm=new Vue({
         selected:"",
         typed:"",
         colorL:{'Black':'#000000','White':'#ffffff','SkyBlue':'#87CEEB','Indigo':'#4B0082','GreenYellow':'#ADFF2F','Maroon':'#800000'},
-        lang:'en-CA'
+        lang:'en-CA',
+        message:"",
     },
     methods:{
         //change background image when it's scrolled to setting position
@@ -81,7 +83,7 @@ var vm=new Vue({
         offPanel:function(){
             this.showP=false;
         },
-        submit:function(){
+        submitT:function(){
             if(checkIsColor(this.typed)){
                 this.theme=this.typed
             }else{
@@ -93,6 +95,18 @@ var vm=new Vue({
         },
         offLang:function(){
             this.showL=false;
+        },
+        showMessage:function(){
+            this.showM=true;
+        },
+        offMessage:function(){
+            this.showM=false;
+        },
+        clearM:function(){
+            var sure=confirm("Are you sure you want to clear all message");
+            if(sure){
+                this.message="";
+            }
         },
     },
     computed:{
@@ -141,7 +155,8 @@ var vm=new Vue({
         //monitor if its scrolled and run changeBg method whenever scrolled
         window.addEventListener("scroll",this.changeBg);
     },
-})
+});
+
 //determine if its RGB value
 //taken from stackoverflow
 function checkIsColor(bgVal) {

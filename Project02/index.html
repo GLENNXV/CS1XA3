@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles/main.css" rel="stylesheet">
     <script src="scripts/vue.js"></script>
-    <link rel="icon" href="icons/icon.png" sizes="32x32">
+    <link rel="icon" href="pics/icon.png" sizes="32x32">
     <title>xus83's personal CV</title>
 </head>
 
@@ -24,13 +24,22 @@
         <button class="bts" style="position:relative;left:52%;" v-bind:style="{color:conTheme}" v-on:mouseenter="showContact" v-on:mouseleave="offContact">CONTACT</button>
         <transition name="fade">
             <!-- v-show is used rather than v-if since its more efficient cuz this div is designed to show and disappear over and over -->
-            <div class="topMenu" style="height:10.5%;width:4%;left:63.6%;" v-bind:style="{'background-color':theme}" v-show="showC" v-on:mouseenter="showContact" v-on:mouseleave="offContact">
+            <div class="topMenu" style="height:12%;width:4%;left:63.6%;" v-bind:style="{'background-color':theme}" v-show="showC" v-on:mouseenter="showContact" v-on:mouseleave="offContact">
                 <button class="bts" onclick="alert('647-469-7576')" style="margin-left:12%;margin-top:20%;" v-bind:style="{color:conTheme}">phone</button>
                 <a class="alinks" style="margin-left:20%;margin-top:20%" v-bind:style="{color:conTheme}" href="mailto:xus83@mcmaster.ca?">email</a>
                 <a class="alinks" style="margin-left:12%;margin-top:20%" v-bind:style="{color:conTheme}" href="https://Linkedin.com/in/glenn-xv-48779a19b">linkedin</a>
                 <a class="alinks" style="margin-left:20%;margin-top:20%" v-bind:style="{color:conTheme}" href="https://Github.com/GLENNXV">github</a>
+                <button class="bts" style="margin-left:12%;margin-top:5%" v-on:click="showMessage" v-bind:style="{color:conTheme}">insite</button>
             </div>
         </transition>
+        <transition name="fade">
+            <div style="position:fixed;width:40%;height:50%;z-index:1;top:24%;left:30%" v-bind:style="{'background-color':theme}" v-bind:style="{color:conTheme}" v-show='showM'>
+                <h1 style="position:fixed;top:30%;left:38.5%" v-bind:style="{color:conTheme}">please input and send message</h1>
+                <button class="bts" style="position:fixed;top:25.1%;left:67%" v-on:click="offMessage" v-bind:style="{color:conTheme}"><strong>close</strong></button>
+                <textarea style="position:fixed;top:40%;left:35%;height:20%;width:30%" placeholder="say something" required v-model="message"></textarea>
+                <button class="bts" style="position:fixed;top:65%;left:43%" v-on:click="clearM" v-bind:style="{color:conTheme}">clear</button>
+                <button class="bts" style="position:fixed;top:65%;left:55%" onclick="alert('cant manipulate backend and dunno the api so of course message sending failed haha')" v-bind:style="{color:conTheme}">submit</button>
+            </div></transition>
         <button class="bts" style="position:relative;left:65%;" v-bind:style="{color:conTheme}" v-on:mouseenter="showSet" v-on:mouseleave="offSet">SETTINGS</button>
         <transition name="fade">
             <div class="topMenu" style="height:10.5%;width:4%;left:80.7%;" v-bind:style="{'background-color':theme}" v-show="showS" v-on:mouseenter="showSet" v-on:mouseleave="offSet">
@@ -59,8 +68,9 @@
                 <input style="position:fixed;top:60%;left:40%" v-model="typed" placeholder="please enter RGB string only">
                 <p style="position:fixed;top:58.5%;left:33%" v-bind:style="{color:conTheme}">input theme</p>
                 <p style="position:fixed;top:61%;left:40%" v-bind:style="{color:conTheme}">i.e. #bf04a3</p>
+                <!-- vue moustache to show value in a variable -->
                 <span style="position:fixed;top:57.5%;left:40%" v-bind:style="{color:conTheme}">{{typed}}</span>
-                <button class="bts" style="position:fixed;top:60%;left:50%" v-on:click="submit" v-bind:style="{color:conTheme}">submit</button>
+                <button class="bts" style="position:fixed;top:60%;left:50%" v-on:click="submitT" v-bind:style="{color:conTheme}">submit</button>
                 <div style="position:fixed;width:5%;height:10%;z-index:2;top:47%;left:60%" v-bind:style="{'background-color':conTheme}"></div>
             </div>
         </transition>
@@ -217,8 +227,7 @@
             © 2020 By Shuren Xu.</p>
     </div>
 </div>
-</body>
-
 
 <script src="scripts/main.js"></script>
+</body>
 </html>
