@@ -72,7 +72,7 @@ function acceptDeclineRequest(event) {
     let url_path=accept_decline_url;
     let json_data={"decision":event.currentTarget.id};
 
-    $post(
+    $.post(
         url_path,
         json_data,
         decisionResponse,
