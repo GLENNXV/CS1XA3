@@ -75,8 +75,7 @@ function acceptDeclineRequest(event) {
     $.post(
         url_path,
         json_data,
-        decisionResponse,
-    )
+        decisionResponse);
 }
 
 /* ********************************************************************************************

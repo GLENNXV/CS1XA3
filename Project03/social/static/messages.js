@@ -21,8 +21,8 @@ function submitPost(event) {
     $.post(
         url_path,
         {"newContent":newContent},
-        postResponse,
-    )
+        postResponse
+    );
 }
 
 /* ********************************************************************************************
@@ -48,8 +48,8 @@ function submitLike(event) {
     $.post(
         url_path,
         {"postID":postID},
-        likeResponse,
-    )
+        likeResponse
+    );
 }
 
 /* ********************************************************************************************

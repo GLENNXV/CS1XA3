@@ -308,7 +308,7 @@ def accept_decline_view(request):
             decision=True
         elif data[0]=="D":
             decision=False
-        to_user = models.UserInfo.objects.get(user=request.user)
+        to_user=models.UserInfo.objects.get(user=request.user)
         from_user_name=models.User.objects.get(username=data[2:])
         from_user=models.UserInfo.objects.get(user=from_user_name)
         theRequest=models.FriendRequest.objects.get(to_user=to_user,from_user=from_user)
