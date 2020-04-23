@@ -45,7 +45,8 @@ def logout_view(request):
       out: (HttpResponse) - perform User logout and redirects to login_view
     """
     # TODO Objective 4 and 9: reset sessions variables
-
+    request.session["pLimit"]=2
+    request.session["poLimit"]=2
     # logout user
     logout(request)
 
@@ -60,10 +61,29 @@ def signup_view(request):
     -------
       out : (HttpRepsonse) - renders signup.djhtml
     """
-    form = None
+    form = UserCreationForm(request.POST)
+
+
 
     # TODO Objective 1: implement signup view
+    if request.POST:
+        if form.is_valid():
+            username=request.POST.get('username')
+            password1=request.POST.get('password1')
+            password2=request.POST.get('password2')
+            sameName=models.User.objects.filter(username=username)
+            if sameName:
+                request.session['failed'] = True
+                return render(request,'signup.djhtml',{'signup_form' : form, 'message':"The two password fields didn't match."})
+            models.UserInfo.objects.create_user_info(username,password1)
+            user=authenticate(request, username=username, password=password1)
+            login(request,user)
+            request.session['failed'] = False
+            return redirect('social:messages_view')
+    else:
+        form=UserCreationForm()
 
-    context = { 'signup_form' : form }
 
+    context = { 'signup_form' : form,
+                'failed' : request.session.get('failed',False) }
     return render(request,'signup.djhtml',context)

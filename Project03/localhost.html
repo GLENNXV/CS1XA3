@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://localhost:8000/e/xus83/signup/ -->
+<html lang="en"><script type="text/javascript" class="acInsScirpt">isExtension=true;console.log('extMode');var AC_xhrCallBack = {};</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+</head><body class="w3-theme-l5">Signup Page
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="./localhost_files/w3.css">
+<link rel="stylesheet" href="./localhost_files/w3-theme-blue-grey.css">
+<link rel="stylesheet" href="./localhost_files/css">
+<link rel="stylesheet" href="./localhost_files/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+</style>
+<script src="./localhost_files/jquery.min.js.下载">
+</script>
+
+    
+    <link rel="stylesheet" href="./localhost_files/w3login.css">
+
+
+
+
+
+
+<!-- Navbar -->
+<div class="w3-top">
+ <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+  
+  
+  <a href="http://localhost:8000/e/xus83/social/account/" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+      
+    <img src="./localhost_files/avatar.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+  </a>
+ </div>
+</div>
+
+
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div id="left-col" class="w3-col m3">
+
+     
+     
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Middle Column -->
+    <div id="mid-col" class="w3-col m7">
+
+     
+<!-- TODO Objective 1: implement signup form -->
+<form method="post" action="http://localhost:8000/e/xus83/signup/">
+    <input type="hidden" name="csrfmiddlewaretoken" value="wgTq5UG2fVf1zgmAroM52oU6hAGvUewefDMZ2c4i0NiZOpKkKMjZISx92yLhPgh8">
+    <!-- <div class="imgcontainer">
+        <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+    -->
+    <div class="container">
+        <!-- <label for="username"><b>Username</b></label>
+             <input type="text" placeholder="Enter Username" name="username" required>
+
+             <label for="password"><b>Password</b></label>
+             <input type="password" placeholder="Enter Password" name="password" required> -->
+            <label for="id_username">Username:</label><ul class="errorlist"><li>This field is required.</li></ul><input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" id="id_username"><br><span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+<label for="id_password1">Password:</label><ul class="errorlist"><li>This field is required.</li></ul><input type="password" name="password1" autocomplete="new-password" required="" id="id_password1"><br><span class="helptext"><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul></span>
+<label for="id_password2">Password confirmation:</label><ul class="errorlist"><li>This field is required.</li></ul><input type="password" name="password2" autocomplete="new-password" required="" id="id_password2"><br><span class="helptext">Enter the same password as before, for verification.</span>
+        <button type="submit">Signup</button>
+    <p style="display:inline">Already have an account?</p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" onclick="window.location.href = &#39;/e/xus83/&#39; ;" class="cancelbtn" style="display:inline;background-color:#4CAF50">Login</button>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="window.location.href = &#39;/e/xus83/&#39; ;" class="cancelbtn">Cancel</button>
+    </div>
+</form>
+
+    <!-- End Middle Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div id="right-col" class="w3-col m2">
+      
+      
+    <!-- End Right Column -->
+    </div>
+
+  <!-- End Grid -->
+  </div>
+
+<!-- End Page Container -->
+</div>
+<br>
+
+<!-- Footer -->
+<footer class="w3-container w3-theme-d3 w3-padding-16">
+  <h5>Built For McMaster CS 1XA3</h5>
+</footer>
+
+<footer class="w3-container w3-theme-d5">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">Django and w3.css</a></p>
+</footer>
+
+<script>
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+
+
+
+
+
+</body></html>

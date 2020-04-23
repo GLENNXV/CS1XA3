@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 
 class Interest(models.Model):
     label = models.CharField(max_length=30,primary_key=True)
+    
+    def __str__(self):
+        return self.label
 
 class UserInfoManager(models.Manager):
     def create_user_info(self, username, password):

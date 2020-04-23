@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, Pass
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 
+from . import forms
 from . import models
 
 def messages_view(request):
@@ -22,11 +23,21 @@ def messages_view(request):
 
         # TODO Objective 9: query for posts (HINT only return posts needed to be displayed)
         posts = []
+        poLimit=request.session.get("poLimit", default=3)
+        poSize=0
+        for i in models.Post.objects.order_by("-timestamp"):
+            if poSize==poLimit:
+                break
+            posts.append(i)
+            poSize+=1
+        request.session["poLimit"]=poLimit
 
         # TODO Objective 10: check if user has like post, attach as a new attribute to each post
+        liked=user_info not in i.likes.all()
 
-        context = { 'user_info' : user_info
-                  , 'posts' : posts }
+        context = { 'user_info' : user_info,
+                    'posts' : posts, 
+                    'liked':liked }
         return render(request,'messages.djhtml',context)
 
     request.session['failed'] = True
@@ -47,13 +58,39 @@ def account_view(request):
                         (if handled in this view)
     """
     if request.user.is_authenticated:
-        form = None
+        form2=forms.InfoForm(request.POST)
 
         # TODO Objective 3: Create Forms and Handle POST to Update UserInfo / Password
-
+        
         user_info = models.UserInfo.objects.get(user=request.user)
+        if request.POST:
+            form=PasswordChangeForm(request.user,request.POST)
+            if form.is_valid():
+                user=form.save()
+                update_session_auth_hash(request,user)
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('social:account_view')
+            else:
+                messages.error(request, 'Please correct the error below.')
+            if form2.is_valid():
+                if request.POST.get('employment')!='' and request.POST.get('employment')!=None:
+                    user_info.employment=request.POST.get('employment')
+                    user_info.save()
+                if request.POST.get('location')!='' and request.POST.get('location')!=None:
+                    user_info.location=request.POST.get('location')
+                    user_info.save()
+                if request.POST.get('birthday')!='' and request.POST.get('birthday')!=None:
+                    user_info.birthday=request.POST.get('birthday')
+                    user_info.save()
+                if request.POST.get('interests')!='' and request.POST.get('interests')!=None:
+                    user_info.interests.create(label=request.POST.get('interests'))
+                    user_info.save()
+
+        else:
+            form=PasswordChangeForm(request.user)
         context = { 'user_info' : user_info,
-                    'form' : form }
+                    'form' : form ,
+                    'form2' : form2}
         return render(request,'account.djhtml',context)
 
     request.session['failed'] = True
@@ -72,14 +109,31 @@ def people_view(request):
     if request.user.is_authenticated:
         user_info = models.UserInfo.objects.get(user=request.user)
         # TODO Objective 4: create a list of all users who aren't friends to the current user (and limit size)
+        pLimit=request.session.get("pLimit", default=2)
         all_people = []
+        pSize=0
+        for i in models.UserInfo.objects.all():
+            if i not in user_info.friends.all() and i.user!=request.user:
+                if pSize==pLimit:
+                    break
+                all_people.append(i)
+                ppSize+=1
+        request.session["pLimit"]=pLimit
 
         # TODO Objective 5: create a list of all friend requests to current user
         friend_requests = []
+        alreadySent=[]
+        for i in models.FriendRequest.objects.all():
+            if user_info==i.to_user:
+                friend_requests.append(i)
+            if user_info==i.from_user:
+                alreadySent.append(i)
 
+        
         context = { 'user_info' : user_info,
                     'all_people' : all_people,
-                    'friend_requests' : friend_requests }
+                    'friend_requests' : friend_requests,
+                    'alreadySent' : alreadySent, }
 
         return render(request,'people.djhtml',context)
 
@@ -106,11 +160,15 @@ def like_view(request):
     if postIDReq is not None:
         # remove 'post-' from postID and convert to int
         # TODO Objective 10: parse post id from postIDReq
-        postID = 0
+        postID = int(postIDReq[5:])
 
         if request.user.is_authenticated:
             # TODO Objective 10: update Post model entry to add user to likes field
-
+            user_info=models.UserInfo.objects.get(user=request.user)
+            likePost=models.Post.objects.get(id=postID)
+            if user_info not in likePost.likes.all():
+                likePost.likes.add(user_info)
+                likePost.save()
             # return status='success'
             return HttpResponse()
         else:
@@ -130,12 +188,14 @@ def post_submit_view(request):
    	  out : (HttpResponse) - after adding a new entry to the POST model, returns an empty HttpResponse,
                              or 404 if any error occurs
     '''
-    postContent = request.POST.get('postContent')
+    postContent = request.POST.get('newContent')
     if postContent is not None:
         if request.user.is_authenticated:
 
             # TODO Objective 8: Add a new entry to the Post model
-
+            user_info=models.UserInfo.objects.get(user=request.user)
+            newPost=models.Post(owner=user_info,content=postContent)
+            newPost.save()
             # return status='success'
             return HttpResponse()
         else:
@@ -159,7 +219,9 @@ def more_post_view(request):
         # TODO Objective 9: update how many posts are displayed/returned by messages_view
 
         # return status='success'
-        return HttpResponse()
+        poLimit=request.session.get("poLimit", default=2)
+        request.session["poLimit"]=poLimit+2
+        return HttpResponse("More Posts Coming up...")
 
     return redirect('login:login_view')
 
@@ -179,7 +241,9 @@ def more_ppl_view(request):
         # TODO Objective 4: increment session variable for keeping track of num ppl displayed
 
         # return status='success'
-        return HttpResponse()
+        pLimit=request.session.get("pLimit", default=2)
+        request.session["pLimit"]=pLimit+2
+        return HttpResponse("More People Coming up...")
 
     return redirect('login:login_view')
 
@@ -205,7 +269,12 @@ def friend_request_view(request):
             # TODO Objective 5: add new entry to FriendRequest
 
             # return status='success'
-            return HttpResponse()
+            to_user_name=models.User.objects.get(username=username)
+            to_user=models.UserInfo.objects.get(user=to_user_name)
+            from_user=models.UserInfo.objects.get(user=request.user)
+            newRequest=models.FriendRequest(to_user=to_user,from_user=from_user)
+            newRequest.save()
+            return HttpResponse("Request Sent")
         else:
             return redirect('login:login_view')
 
@@ -229,13 +298,27 @@ def accept_decline_view(request):
     data = request.POST.get('decision')
     if data is not None:
         # TODO Objective 6: parse decision from data
+        if data[0]=="A":
+            decision=True
+        elif data[0]=="D":
+            decision=False
+        to_user = models.UserInfo.objects.get(user=request.user)
+        from_user_name=models.User.objects.get(username=data[2:])
+        from_user=models.UserInfo.objects.get(user=from_user_name)
+        theRequest=models.FriendRequest.objects.get(to_user=to_user,from_user=from_user)
 
         if request.user.is_authenticated:
 
             # TODO Objective 6: delete FriendRequest entry and update friends in both Users
 
             # return status='success'
-            return HttpResponse()
+            if decision:
+                from_user.friends.add(to_user)
+                to_user.friends.add(from_user)
+                from_user.save()
+                to_user.save()
+            theRequest.delete()
+            return HttpResponse("success")
         else:
             return redirect('login:login_view')
 
