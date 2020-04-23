@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 class Interest(models.Model):
     label = models.CharField(max_length=30,primary_key=True)
@@ -29,7 +30,7 @@ class Post(models.Model):
     owner = models.ForeignKey(UserInfo,
                               on_delete=models.CASCADE)
     content = models.CharField(max_length=280)
-    timestamp = models.DateTimeField(auto_now=True)
+    timestamp = models.DateTimeField(default=datetime.datetime.now)
     likes = models.ManyToManyField(UserInfo,
                                    related_name='likes')
 

@@ -73,18 +73,24 @@ def account_view(request):
             else:
                 messages.error(request, 'Please correct the error below.')
             if form2.is_valid():
-                if request.POST.get('employment')!='' and request.POST.get('employment')!=None:
+                if request.POST.get('employment')!='' and request.POST.get('employment') is not None:
                     user_info.employment=request.POST.get('employment')
                     user_info.save()
-                if request.POST.get('location')!='' and request.POST.get('location')!=None:
+                if request.POST.get('location')!='' and request.POST.get('location') is not None:
                     user_info.location=request.POST.get('location')
                     user_info.save()
-                if request.POST.get('birthday')!='' and request.POST.get('birthday')!=None:
+                if request.POST.get('birthday')!='' and request.POST.get('birthday') is not None:
                     user_info.birthday=request.POST.get('birthday')
                     user_info.save()
-                if request.POST.get('interests')!='' and request.POST.get('interests')!=None:
-                    user_info.interests.create(label=request.POST.get('interests'))
-                    user_info.save()
+                if request.POST.get('interests')!='' and request.POST.get('interests') is not None:
+                    interests=[]
+                    for i in user_info.interests.all():
+                        interests.append(i.label)
+                    if request.POST.get('interests') not in interests:
+                        newInterest=models.Interest(label=request.POST.get('interests'))
+                        newInterest.save()
+                        user_info.interests.add(newInterest)
+                        user_info.save()
 
         else:
             form=PasswordChangeForm(request.user)
@@ -117,7 +123,7 @@ def people_view(request):
                 if pSize==pLimit:
                     break
                 all_people.append(i)
-                ppSize+=1
+                pSize+=1
         request.session["pLimit"]=pLimit
 
         # TODO Objective 5: create a list of all friend requests to current user
